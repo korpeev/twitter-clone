@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+  .btn-primary {
+    @apply px-2 bg-accent rounded-3xl text-white items-center flex py-2 font-bold;
+  }
+  .btn-secondary {
+    @apply px-2 bg-white rounded-3xl w-full text-black items-center flex py-2 font-bold;
+  }
+
+  .btn-outlined {
+    @apply px-2 bg-transparent border-[1px] border-gray-400 rounded-3xl w-full text-accent items-center flex py-2 hover:bg-blue-50 font-bold;
+  }
+  .btn-black {
+    @apply px-4 bg-white border-[1px] border-gray-400 rounded-3xl w-full text-black items-center flex py-2 hover:bg-gray-100 font-bold;
+  }
+}

@@ -1,6 +1,6 @@
 //@ts-nocheck
 import { createTheme } from "@mui/material/styles";
-import { red } from "@mui/material/colors";
+import { red, grey, green } from "@mui/material/colors";
 export const theme = createTheme({
   typography: {
     fontFamily: [
@@ -18,7 +18,12 @@ export const theme = createTheme({
     primary: {
       main: "rgb(29, 161, 242)",
       dark: "rgb(26, 145, 218)",
+      light: "rgba(29, 155, 240, .1)",
       contrastText: "#fff",
+    },
+    grey: grey[400],
+    green: {
+      main: green[300],
     },
     secondary: {
       main: "rgb(26, 145, 218)",
@@ -31,62 +36,57 @@ export const theme = createTheme({
     },
   },
   shadows: [],
-  overrides: {
+  components: {
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          "&:hover": {
+            borderRadius: "30px",
+          },
+          padding: "10px 10px",
+          borderRadius: "30px",
+        },
+      },
+    },
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          padding: ".5rem 0",
+        },
+      },
+    },
     MuiButton: {
-      root: {
-        borderRadius: 30,
-        textTransform: "none",
-        fontSize: 16,
-        height: 40,
-        fontWeight: 700,
-      },
-      textPrimary: {
-        paddingLeft: 20,
-        paddingRight: 20,
-      },
-      outlinedPrimary: {
-        borderColor: "rgb(29, 161, 243)",
-      },
-    },
-    MuiFilledInput: {
-      underline: {
-        "&:after": {
-          borderBottomWidth: "2px",
-        },
-        "&:before": {
-          borderColor: "#000",
-          borderBottomWidth: "2px",
+      styleOverrides: {
+        root: {
+          borderRadius: 30,
         },
       },
-      input: {
-        backgroundColor: "rgb(245, 248, 250)",
-      },
     },
-    MuiDialog: {
-      paper: {
-        borderRadius: 15,
-      },
+  },
+  transitions: {
+    duration: {
+      shortest: 150,
+      shorter: 200,
+      short: 250,
+      // most basic recommended timing
+      standard: 300,
+      // this is to be used in complex animations
+      complex: 375,
+      // recommended when something is entering screen
+      enteringScreen: 225,
+      // recommended when something is leaving screen
+      leavingScreen: 195,
     },
-    MuiDialogActions: {
-      root: {
-        marginBottom: 8,
-      },
-    },
-    MuiDialogTitle: {
-      root: {
-        borderBottom: "1px solid rgb(204, 214, 221)",
-        marginBottom: 10,
-        padding: "10px 15px",
-        "& h2": {
-          display: "flex",
-          alignItems: "center",
-          fontWeight: 800,
-        },
-        "& button": {
-          padding: 8,
-          marginRight: 20,
-        },
-      },
+    easing: {
+      // This is the most common easing curve.
+      easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
+      // Objects enter the screen at full velocity from off-screen and
+      // slowly decelerate to a resting point.
+      easeOut: "cubic-bezier(0.0, 0, 0.2, 1)",
+      // Objects leave the screen at full velocity. They do not decelerate when off-screen.
+      easeIn: "cubic-bezier(0.4, 0, 1, 1)",
+      // The sharp curve is used by objects that may return to the screen at any time.
+      sharp: "cubic-bezier(0.4, 0, 0.6, 1)",
     },
   },
 });

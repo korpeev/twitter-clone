@@ -1,0 +1,6 @@
+/* components */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "./styles/components/button.component.css";
+@import "./styles/components/main.components.css";
