@@ -3,7 +3,7 @@
 @tailwind utilities;
 @layer components {
   .btn-primary {
-    @apply px-2 bg-accent rounded-3xl text-white items-center flex py-2 font-bold;
+    @apply px-2 bg-accent rounded-3xl text-white items-center flex py-2 font-bold hover:bg-sky-500;
   }
   .btn-secondary {
     @apply px-2 bg-white rounded-3xl w-full text-black items-center flex py-2 font-bold;
