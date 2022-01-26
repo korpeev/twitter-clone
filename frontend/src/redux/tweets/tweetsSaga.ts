@@ -7,7 +7,7 @@ import { TweetsType } from "./types";
 
 function* fetchTweetsWorker() {
   try {
-    const response: AxiosResponse<State<TweetsType>["items"]> = yield call(
+    const response: AxiosResponse<State<TweetsType>["items"][]> = yield call(
       tweetsApi.fectchTweets
     );
     yield put(fetchTweetsSuccess(response.data));

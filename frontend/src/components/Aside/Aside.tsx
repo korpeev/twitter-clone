@@ -1,5 +1,6 @@
 import cn from "classnames";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Modal } from "..";
 import SendTweet from "../Tweet/SendTweet";
 import { AiOutlineTwitter } from "./aside-icons";
@@ -18,10 +19,14 @@ const Aside = () => {
       <Modal handleClose={handleClose} isOpen={open} title="Создать Твит">
         <SendTweet />
       </Modal>
-      <aside className="col-end-3 fixed col-start-1 border-r-2 border-gray-200 h-screen pr-6">
-        <nav className="mt-5">
-          <li className="relative pl-3 rounded-[50%] w-[42px] cursor-pointer list-none text-accent">
-            <AiOutlineTwitter size={35} />
+      <aside className="col-start-1 col-end-4 relative">
+        <nav className="sticky top-0 h-screen border-r-2 border-gray-200 pr-4">
+          <li className="relative pl-3 pt-5 rounded-[50%] w-[42px] cursor-pointer list-none text-accent">
+            <Link
+              to="/"
+              className="rounded-full hover:bg-sky-200 w-8 h-8 flex items-center justify-center">
+              <AiOutlineTwitter size={35} />
+            </Link>
           </li>
           {menuLists.map(({ icon, iconActive, text }, index) => (
             <li

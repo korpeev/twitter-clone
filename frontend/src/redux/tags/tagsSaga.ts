@@ -7,15 +7,15 @@ import { TagsState } from "./types";
 
 function* fetchTagsWorker() {
   try {
-    const response: AxiosResponse<State<TagsState>["items"]> = yield call(
+    const response: AxiosResponse<State<TagsState>["items"][]> = yield call(
       tweetsApi.fetchTags
     );
-    yield put(fetchTagsSuccess(response.data));
+    yield put(fetchTagsSuccess(response.data[0]));
   } catch (error: any) {
     yield put(fetchTagsError(error));
   }
 }
 
-export function* tweetsWatcher() {
+export function* tagsWatcher() {
   yield takeEvery("tags/fetchTags", fetchTagsWorker);
 }

@@ -6,7 +6,8 @@ type Themes = {
 };
 
 export type TagsState = {
+  id?: string;
   tweets: [];
-  user: UserInfo;
+  users: UserInfo[];
   themes: Themes[];
 };

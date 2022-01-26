@@ -9,14 +9,14 @@ const SendTweet = () => {
   };
   return (
     <div className="p-4 flex border-b-2 border-gray-100">
-      <div className="h-12 w-12 mb-4 lg:mb-0 mr-2">
+      <div className="h-12 w-26  lg:mb-0 mr-2">
         <img
           src="https://tuk-cdn.s3.amazonaws.com/assets/components/avatars/a_3_0.png"
           alt="avatar"
-          className="h-full w-full rounded-full overflow-hidden shadow"
+          className="h-full w-full overflow-hidden rounded-full shadow"
         />
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col max-w-xs">
         <textarea
           onChange={handleChangeTextArea}
           value={text}

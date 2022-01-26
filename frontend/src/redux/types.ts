@@ -5,7 +5,7 @@ export enum LoadingState {
   ERROR = "ERROR",
 }
 export type State<T> = {
-  items: T[];
+  items: T;
   loadingState: LoadingState;
   errors: Error[] | null;
 };

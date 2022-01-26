@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useNavigate, useNavigationType } from "react-router-dom";
 import { TweetsType } from "../../redux/tweets/types";
 import {
   AiOutlineHeart,
@@ -7,12 +8,18 @@ import {
   RiShareForward2Line,
 } from "./tweet-icons";
 
-type TweetProps = TweetsType;
+interface TweetProps extends TweetsType {}
 
-const Tweet: FC<TweetProps> = ({ text, user }) => {
+const Tweet: FC<TweetProps> = ({ text, user, id }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`tweet/${id}`);
+  };
   return (
-    <div className="flex items-start p-4 hover:bg-gray-100 cursor-pointer transition-colors duration-200 ease-in-out ">
-      <div className="h-12 w-20 mb-4 lg:mb-0 mr-2">
+    <div
+      onClick={handleClick}
+      className="flex items-start p-4 hover:bg-gray-100 cursor-pointer transition-colors duration-200 ease-in-out">
+      <div className="h-12 w-24 mb-4 lg:mb-0 mr-2">
         <img
           src={user.avatarUrl}
           alt="avatar"
@@ -24,11 +31,11 @@ const Tweet: FC<TweetProps> = ({ text, user }) => {
           <a href="#id" className="font-semibold hover:underline">
             {user.fullname}
           </a>
-          <span className="text-gray-400 mx-2">@{user.username} -</span>
+          <span className="text-gray-400 mx-2 text-xs">@{user.username} -</span>
           <span className="text-gray-400">1hr</span>
         </div>
         <div className="max-w-2xl">
-          <p className="text-sm">{text}</p>
+          <p className="text-xs">{text}</p>
         </div>
         <div className="mt-5 flex items-center justify-between text-sm">
           <div className="flex group hover:text-accent items-center transition-colors duration-150 ease-linear cursor-pointer">

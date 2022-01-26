@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LoadingState, State } from "../types";
 import { TweetsType } from "./types";
-const initialState: State<TweetsType> = {
+const initialState: State<TweetsType[]> = {
   items: [],
   loadingState: LoadingState.NEVER,
   errors: null,
@@ -15,7 +15,7 @@ const tweetsSlice = createSlice({
       state.items = [];
       state.errors = null;
     },
-    fetchTweetsSuccess: (state, action: PayloadAction<State<TweetsType>["items"]>) => {
+    fetchTweetsSuccess: (state, action: PayloadAction<State<TweetsType[]>["items"]>) => {
       state.loadingState = LoadingState.SUCCESS;
       state.items = action.payload;
     },

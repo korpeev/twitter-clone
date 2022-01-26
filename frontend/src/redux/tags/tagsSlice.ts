@@ -3,7 +3,7 @@ import { LoadingState, State } from "../types";
 import { TagsState } from "./types";
 
 const initialState: State<TagsState> = {
-  items: [],
+  items: {} as TagsState,
   loadingState: LoadingState.NEVER,
   errors: null,
 };
@@ -14,7 +14,7 @@ const tagsSlice = createSlice({
   reducers: {
     fetchTags: (state) => {
       state.loadingState = LoadingState.LOADING;
-      state.items = [];
+      state.items = {} as TagsState;
       state.errors = null;
     },
     fetchTagsSuccess: (state, action: PayloadAction<State<TagsState>["items"]>) => {
@@ -24,7 +24,7 @@ const tagsSlice = createSlice({
     fetchTagsError: (state, action: PayloadAction<Error[]>) => {
       state.loadingState = LoadingState.ERROR;
       state.errors = action.payload;
-      state.items = [];
+      state.items = {} as TagsState;
     },
   },
 });
