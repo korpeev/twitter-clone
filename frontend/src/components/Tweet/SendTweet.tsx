@@ -1,7 +1,8 @@
 import classNames from "classnames";
 import { Notification } from "../";
-import { BiImageAdd, BsEmojiSmile } from "./tweet-icons";
+import { BiImageAdd, BsEmojiSmile, IoMdCloseCircle } from "./tweet-icons";
 import useCreateTweet from "../../hooks/useCreateTweet";
+import { SyntheticEvent } from "react";
 
 const SendTweet = () => {
   const {
@@ -12,6 +13,10 @@ const SendTweet = () => {
     textLength,
     text,
     setShow,
+    preview,
+    handleFileClick,
+    handleClearPreview,
+    ref,
   } = useCreateTweet();
 
   return (
@@ -29,7 +34,7 @@ const SendTweet = () => {
           className="h-full w-full overflow-hidden rounded-full shadow"
         />
       </div>
-      <div className="flex flex-col max-w-xs">
+      <div className="flex flex-col  max-w-xs relative">
         <textarea
           onChange={handleChangeTextArea}
           value={text}
@@ -39,6 +44,21 @@ const SendTweet = () => {
           rows={5}
           cols={38}
         />
+        {preview && preview.length > 0 && (
+          <div className="relative">
+            <IoMdCloseCircle
+              onClick={handleClearPreview}
+              className="absolute top-2 text-white cursor-pointer"
+              size={30}
+            />
+
+            <img
+              className="overflow-hidden w-full h-full rounded-md"
+              src={preview}
+              alt="preview"
+            />
+          </div>
+        )}
         <div className="flex flex-row-reverse justify-between border-t-2 items-center border-gray-100">
           <div className="flex flex-row-reverse items-center">
             <button
@@ -59,12 +79,24 @@ const SendTweet = () => {
             </span>
           </div>
           <div className="flex ">
-            <button className="text-accent">
+            <button
+              onClick={(e: SyntheticEvent) => e.preventDefault()}
+              className="text-accent">
               <BsEmojiSmile />
             </button>
-            <button className="ml-2 text-accent">
-              <BiImageAdd size={28} />
-            </button>
+            <div className="ml-2 text-accent">
+              <label htmlFor="image">
+                <BiImageAdd size={28} />
+              </label>
+              <input
+                ref={ref}
+                id="image"
+                accept="image/*"
+                onChange={handleFileClick}
+                type="file"
+                className="hidden"
+              />
+            </div>
           </div>
         </div>
       </div>
