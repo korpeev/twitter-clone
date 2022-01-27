@@ -1,54 +1,18 @@
 import classNames from "classnames";
-import { ChangeEvent, SyntheticEvent, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { fetchPostTweet } from "../../redux/tweets/tweetsSlice";
-import { Notification } from "../index";
-import { selectTweetsSelector } from "../../redux/selectors";
-import { AddFormState } from "../../redux/types";
-import { BiImageAdd } from "react-icons/bi";
-import { BsEmojiSmile } from "react-icons/bs";
+import { Notification } from "../";
+import { BiImageAdd, BsEmojiSmile } from "./tweet-icons";
+import useCreateTweet from "../../hooks/useCreateTweet";
 
-type ErrorText = {
-  body: string;
-  title: string;
-};
 const SendTweet = () => {
-  const [text, setText] = useState("");
-  const { addFormState, errors } = useAppSelector(selectTweetsSelector);
-  const [isShow, setShow] = useState(false);
-  const [errorText, setErrorText] = useState<ErrorText>({
-    body: "",
-    title: "",
-  });
-  const dispatch = useAppDispatch();
-  const textLength = 250 - text.length;
-  const handleChangeTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.currentTarget.value);
-  };
-
-  const handleAddTweet = (e: SyntheticEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (!text.length) {
-      setErrorText({
-        title: "Ошибка валидаций",
-        body: "Поле не должно быть пустым",
-      });
-      setShow(true);
-      return;
-    }
-    if (addFormState === AddFormState.ERROR) {
-      setErrorText({
-        title: "Ошбика при отправке",
-        body: errors?.message as string,
-      });
-      setShow(true);
-      setText("");
-      return;
-    }
-    dispatch(fetchPostTweet(text));
-    setText("");
-    setErrorText({} as ErrorText);
-  };
+  const {
+    errorText,
+    isShow,
+    handleChangeTextArea,
+    handleAddTweet,
+    textLength,
+    text,
+    setShow,
+  } = useCreateTweet();
 
   return (
     <form className="p-4 flex border-b-2 border-gray-100">

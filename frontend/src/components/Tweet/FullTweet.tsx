@@ -1,14 +1,12 @@
-import {useEffect, useState} from "react";
-import {Params, useParams} from "react-router-dom";
-import {Tweet} from "..";
-import {selectTweetSelector} from "../../redux/selectors";
-import {useAppDispatch, useAppSelector} from "../../redux/store";
-import {fetchTweet} from "../../redux/tweet/tweetSlice";
-import React from 'react';
-
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { Tweet } from "..";
+import { selectTweetSelector } from "../../redux/selectors";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { fetchTweet } from "../../redux/tweet/tweetSlice";
 
 const FullTweet = () => {
-  const {items: tweet} = useAppSelector(selectTweetSelector);
+  const { items: tweet } = useAppSelector(selectTweetSelector);
   const dispatch = useAppDispatch();
   const params = useParams();
 
@@ -17,10 +15,10 @@ const FullTweet = () => {
   }, []);
 
   if (!tweet.user) {
-    return null
+    return null;
   }
 
-  return <Tweet {...tweet} full/>;
+  return <Tweet {...tweet} full />;
 };
 
 export default FullTweet;
