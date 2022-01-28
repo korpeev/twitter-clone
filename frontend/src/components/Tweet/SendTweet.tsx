@@ -1,11 +1,11 @@
 import classNames from "classnames";
 import { Notification } from "../";
 import { BiImageAdd, BsEmojiSmile, IoMdCloseCircle } from "./tweet-icons";
-import useCreateTweet from "../../hooks/useCreateTweet";
+import useCreateTweet from "@/hooks/useCreateTweet";
 import Picker from "emoji-picker-react";
-import useTextArea from "../../hooks/useTextArea";
-import useFile from "../../hooks/useFile";
-import useEmojiPicker from "../../hooks/useEmojiPicker";
+import useTextArea from "@/hooks/useTextArea";
+import useFile from "@/hooks/useFile";
+import useEmojiPicker from "@/hooks/useEmojiPicker";
 
 const SendTweet = () => {
   const { errorText, handleChangeTextArea, textLength, text, setErrorText, setText } =

@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import cn from "classnames";
-import { TweetsType } from "../../redux/tweets/types";
+import { TweetsType } from "@/redux/tweets/types";
+
 import {
   AiOutlineHeart,
   AiOutlineRetweet,

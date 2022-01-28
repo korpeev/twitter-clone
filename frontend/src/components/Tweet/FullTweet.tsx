@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Tweet } from "..";
-import { selectTweetSelector } from "../../redux/selectors";
-import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { fetchTweet } from "../../redux/tweet/tweetSlice";
+import { selectTweetSelector } from "@/redux/selectors";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { fetchTweet } from "@/redux/tweet/tweetSlice";
 
 const FullTweet = () => {
   const { items: tweet } = useAppSelector(selectTweetSelector);

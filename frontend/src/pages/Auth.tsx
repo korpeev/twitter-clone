@@ -1,6 +1,7 @@
-import { TwitterOutlined, GoogleOutlined } from "@ant-design/icons";
+import { GoogleOutlined, TwitterOutlined } from "@ant-design/icons";
 import { useState } from "react";
-import { Modal } from "../components";
+import { Modal } from "@/components";
+
 const Auth = () => {
   const [modalType, setModalType] = useState<"signIn" | "signUp" | null>(null);
 
