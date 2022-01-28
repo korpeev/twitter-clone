@@ -2,7 +2,8 @@ import classNames from "classnames";
 import { Notification } from "../";
 import { BiImageAdd, BsEmojiSmile, IoMdCloseCircle } from "./tweet-icons";
 import useCreateTweet from "../../hooks/useCreateTweet";
-import { SyntheticEvent } from "react";
+import Picker from "emoji-picker-react";
+import { useEffect } from "react";
 
 const SendTweet = () => {
   const {
@@ -17,10 +18,32 @@ const SendTweet = () => {
     handleFileClick,
     handleClearPreview,
     ref,
+    onEmojiClick,
+    openPicker,
+    setOpenPicker,
+    pickerRef,
+    openRef,
+    togglePicker,
   } = useCreateTweet();
+  useEffect(() => {
+    const listener = (e: MouseEvent) => {
+      if (
+        !pickerRef.current ||
+        pickerRef.current.contains(e.target as Node) ||
+        openRef.current?.contains(e.target as Node)
+      ) {
+        return;
+      }
+      setOpenPicker(false);
+    };
+    document.addEventListener("click", listener);
 
+    return () => {
+      document.removeEventListener("click", listener);
+    };
+  }, [pickerRef]);
   return (
-    <form className="p-4 flex border-b-2 border-gray-100">
+    <div className="p-4 flex border-b-2 border-gray-100">
       <Notification
         body={errorText.body}
         title={errorText.title}
@@ -78,12 +101,23 @@ const SendTweet = () => {
               /250
             </span>
           </div>
-          <div className="flex ">
-            <button
-              onClick={(e: SyntheticEvent) => e.preventDefault()}
-              className="text-accent">
+          <div className="flex relative">
+            <button ref={openRef} onClick={togglePicker} className="text-accent toggle">
               <BsEmojiSmile />
             </button>
+            <div id={"picker"} ref={pickerRef}>
+              {openPicker && (
+                <Picker
+                  native={false}
+                  pickerStyle={{
+                    position: "absolute",
+                  }}
+                  disableAutoFocus
+                  preload={false}
+                  onEmojiClick={onEmojiClick}
+                />
+              )}
+            </div>
             <div className="ml-2 text-accent">
               <label htmlFor="image">
                 <BiImageAdd size={28} />
@@ -100,7 +134,7 @@ const SendTweet = () => {
           </div>
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 export default SendTweet;

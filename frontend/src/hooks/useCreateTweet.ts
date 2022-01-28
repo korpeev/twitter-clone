@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../redux/store";
 import { selectTweetsSelector } from "../redux/selectors";
 import { AddFormState } from "../redux/types";
 import { fetchPostTweet } from "../redux/tweets/tweetsSlice";
+import { IEmojiData } from "emoji-picker-react";
 
 type ErrorText = {
   body: string;
@@ -14,14 +15,18 @@ const useCreateTweet = () => {
   const [preview, setPreview] = useState<string | null>("");
   const { addFormState, errors } = useAppSelector(selectTweetsSelector);
   const [isShow, setShow] = useState(false);
+  const [openPicker, setOpenPicker] = useState(false);
   const [errorText, setErrorText] = useState<ErrorText>({
     body: "",
     title: "",
   });
   const ref = useRef<HTMLInputElement>(null);
+  const pickerRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
+  const openRef = useRef<HTMLButtonElement>(null);
   const maxTextLength = 250;
   const textLength = maxTextLength - text.length;
+
   useEffect(() => {
     if (file) {
       const reader = new FileReader();
@@ -32,6 +37,7 @@ const useCreateTweet = () => {
     }
   }, [file]);
   const handleChangeTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    e.preventDefault();
     setText(e.currentTarget.value);
   };
   const handleFileClick = (e: ChangeEvent<HTMLInputElement>) => {
@@ -80,6 +86,13 @@ const useCreateTweet = () => {
       ref.current.value = "";
     }
   };
+
+  const onEmojiClick = (event: SyntheticEvent, emojiObject: IEmojiData) => {
+    setText((prev) => prev.concat(emojiObject.emoji));
+  };
+  const togglePicker = () => {
+    setOpenPicker(!openPicker);
+  };
   return {
     text,
     setText,
@@ -94,6 +107,12 @@ const useCreateTweet = () => {
     preview,
     handleClearPreview,
     ref,
+    onEmojiClick,
+    togglePicker,
+    openPicker,
+    pickerRef,
+    openRef,
+    setOpenPicker,
   };
 };
 
