@@ -3,45 +3,22 @@ import { Notification } from "../";
 import { BiImageAdd, BsEmojiSmile, IoMdCloseCircle } from "./tweet-icons";
 import useCreateTweet from "../../hooks/useCreateTweet";
 import Picker from "emoji-picker-react";
-import { useEffect } from "react";
+import useTextArea from "../../hooks/useTextArea";
+import useFile from "../../hooks/useFile";
+import useEmojiPicker from "../../hooks/useEmojiPicker";
 
 const SendTweet = () => {
-  const {
-    errorText,
-    isShow,
-    handleChangeTextArea,
-    handleAddTweet,
-    textLength,
-    text,
-    setShow,
-    preview,
-    handleFileClick,
-    handleClearPreview,
-    ref,
-    onEmojiClick,
-    openPicker,
-    setOpenPicker,
-    pickerRef,
-    openRef,
-    togglePicker,
-  } = useCreateTweet();
-  useEffect(() => {
-    const listener = (e: MouseEvent) => {
-      if (
-        !pickerRef.current ||
-        pickerRef.current.contains(e.target as Node) ||
-        openRef.current?.contains(e.target as Node)
-      ) {
-        return;
-      }
-      setOpenPicker(false);
-    };
-    document.addEventListener("click", listener);
+  const { errorText, handleChangeTextArea, textLength, text, setErrorText, setText } =
+    useTextArea();
+  const { isShow, handleAddTweet, setShow } = useCreateTweet(setErrorText, text, setText);
 
-    return () => {
-      document.removeEventListener("click", listener);
-    };
-  }, [pickerRef]);
+  const { preview, handleFileClick, inputRef, handleClearPreview } = useFile(
+    setErrorText,
+    setShow
+  );
+  const { onEmojiClick, openPicker, pickerRef, openRef, togglePicker } =
+    useEmojiPicker(setText);
+
   return (
     <div className="p-4 flex border-b-2 border-gray-100">
       <Notification
@@ -123,7 +100,7 @@ const SendTweet = () => {
                 <BiImageAdd size={28} />
               </label>
               <input
-                ref={ref}
+                ref={inputRef}
                 id="image"
                 accept="image/*"
                 onChange={handleFileClick}
